@@ -20,6 +20,7 @@ def run_processing():
 
     if args.algo == 'pillow':
 
+        print("using algo pillow")
         for _file in list_of_files:
             _image = Image.open(_file)
             _data = np.asarray(_image)
@@ -27,8 +28,9 @@ def run_processing():
 
     elif args.algo == 'neunorm':
 
+        print("using algo NeuNorm")
         o_norm = Normalization()
-        o_norm.load(file=list_of_files, gamma_filter=False)
+        o_norm.load(file=list_of_files, gamma_filter=True)
         data = o_norm.data['sample']['data']
 
     print(np.shape(data))
