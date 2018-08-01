@@ -6,7 +6,7 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 
 #print("Number of processes is %d" %comm.Get_size())   # '4' if 'mpiexec -n 4 python hello.py'
-#print("Hello world from process %d" %rank)
+print("Hello world from process %d" %rank)
 
 # (py3)mac102217:MPI j35$ python hello.py
 # -> Hello world from process 0
