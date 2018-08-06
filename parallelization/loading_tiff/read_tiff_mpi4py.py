@@ -7,11 +7,6 @@ import numpy
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 
-
-
-
-
-
 # pass explicit MPI datatypes
 if rank == 0:
     data = numpy.arange(1000, dtype='i')
