@@ -1,4 +1,0 @@
-hellow world #3!
-I'm counting the number of Majuscules
-in THIS text and I should
-have 7 of them.
