@@ -16,7 +16,6 @@ class Circle:
 			raise ValueError("Radius cannot be negative")
 		self._radius = radius
 
-
 	@property
 	def diameter(self):
 		return 2 * self._radius
