@@ -1,0 +1,17 @@
+grandparent:
+  parent:
+    child: {name: Bobby}
+    sibling: {'name': "Molly"}
+person:
+  firstName: John
+  lastName: Doe
+  dateOfBirth: 1969-12-31
+  married: true
+  spouse:
+    firstName: Jane
+    lastName: Smith
+  children:
+    - firstName: Bobby
+      dateOfBirth: 1995-01-17
+    - firstName: Molly
+      dateOfBirth: 2001-05-14
