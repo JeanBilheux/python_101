@@ -35,6 +35,8 @@ fig, current_ax = plt.subplots()                    # make a new plotingrange
 N = 100000                                       # If N is large one can see
 x = np.linspace(0.0, 10.0, N)                    # improvement by use blitting!
 
+# %matplotlib notebook
+
 plt.plot(x, +np.sin(.2*np.pi*x), lw=3.5, c='b', alpha=.7)  # plot something
 plt.plot(x, +np.cos(.2*np.pi*x), lw=3.5, c='r', alpha=.5)
 plt.plot(x, -np.sin(.2*np.pi*x), lw=3.5, c='g', alpha=.3)
