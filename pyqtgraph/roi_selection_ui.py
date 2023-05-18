@@ -71,6 +71,11 @@ class Interface(QMainWindow):
         image_pos = self.image_item.mapFromScene(mouseClickEvent.scenePos())
         print(f"{image_pos =}")
 
+        # docs used to find about this
+        # https://stackoverflow.com/questions/58526980/how-to-connect-mouse-clicked-signal-to-pyqtgraph-plot-widget
+        # https://pyqtgraph.readthedocs.io/en/latest/api_reference/graphicsscene/mouseclickevent.html
+        # https://groups.google.com/g/pyqtgraph/c/iAROzor1ldE
+
     def init_widgets(self):
         nbr_columns = self.ui.table_roi.columnCount()
         for _col in range(nbr_columns):
