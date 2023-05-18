@@ -46,7 +46,16 @@ class Interface(QMainWindow):
         self.init_statusbar()
         self.setWindowTitle("Background ROI Selection Tool")
 
+        # self.image_item = pg.PlotItem()
+        # self.ui.image_view = pg.ImageView(view=self.image_item)
         self.ui.image_view = pg.ImageView()
+
+        #FIXME
+        self.image_item = self.ui.image_view.getImageItem()
+        self.scene = self.image_item.scene()
+        self.scene.sigMouseClicked.connect(self.mouse_clicked)
+
+
         self.ui.image_view.ui.roiBtn.hide()
         self.ui.image_view.ui.menuBtn.hide()
 
@@ -56,6 +65,11 @@ class Interface(QMainWindow):
         self.init_widgets()
         self.integrate_images()
         self.display_image()
+
+    def mouse_clicked(self, mouseClickEvent):
+        print("mouse clicked")
+        image_pos = self.image_item.mapFromScene(mouseClickEvent.scenePos())
+        print(f"{image_pos =}")
 
     def init_widgets(self):
         nbr_columns = self.ui.table_roi.columnCount()
