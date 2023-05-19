@@ -50,10 +50,19 @@ class Interface(QMainWindow):
         # self.ui.image_view = pg.ImageView(view=self.image_item)
         self.ui.image_view = pg.ImageView()
 
-        #FIXME
+        # mouse click work
         self.image_item = self.ui.image_view.getImageItem()
         self.scene = self.image_item.scene()
         self.scene.sigMouseClicked.connect(self.mouse_clicked)
+        # self.scene.sigMouseMoved.connect(self.mouse_moved)
+
+        self.proxy = pg.SignalProxy(self.scene.sigMouseMoved, rateLimit=60, slot=self.mouse_moved)
+
+        self.vline = pg.InfiniteLine(angle=90, movable=False)
+        self.hline = pg.InfiniteLine(angle=0, movable=False)
+        self.ui.image_view.addItem(self.vline)
+        self.ui.image_view.addItem(self.hline)
+
 
 
         self.ui.image_view.ui.roiBtn.hide()
@@ -66,8 +75,27 @@ class Interface(QMainWindow):
         self.integrate_images()
         self.display_image()
 
+    def mouse_moved(self, evt):
+        # print("in mouse moved")
+        pos = evt[0]
+
+        height = self.integrated_image_size['height']
+        width = self.integrated_image_size['width']
+
+        if self.image_item.sceneBoundingRect().contains(pos):
+            image_pos = self.image_item.mapFromScene(pos)
+            x = int(image_pos.x())
+            y = int(image_pos.y())
+            if (x >= 0) and (x < width) and (y >= 0) and (y < height):
+                self.vline.setPos(x)
+                self.hline.setPos(y)
+
+        # if self.scene.sceneBoundingRect().contains(pos):
+        #     print("yes in bounding rect")
+
+
+
     def mouse_clicked(self, mouseClickEvent):
-        print("mouse clicked")
         image_pos = self.image_item.mapFromScene(mouseClickEvent.scenePos())
         print(f"{image_pos =}")
 
