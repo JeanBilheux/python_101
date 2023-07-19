@@ -63,8 +63,6 @@ class Interface(QMainWindow):
         self.ui.image_view.addItem(self.vline)
         self.ui.image_view.addItem(self.hline)
 
-
-
         self.ui.image_view.ui.roiBtn.hide()
         self.ui.image_view.ui.menuBtn.hide()
 
