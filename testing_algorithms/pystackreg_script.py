@@ -11,16 +11,19 @@ import sys, getopt
 def main(argv):
 
     input_folder = ''
+    output_folder = ''
 
-    opts, args = getopt.getopt(argv, "hi:o:", ["ifolder="])
+    opts, args = getopt.getopt(argv, "hi:o:", ["ifolder=", "ofolder="])
 
     for opt, arg in opts:
 
         if opt == '-h':
-            print("python pystackreg_script.py -i <inputfolder>")
+            print("python pystackreg_script.py -i <input_folder> [-o <output_folder>")
             sys.exit()
         elif opt in ("-i", "--ifolder"):
             input_folder = arg
+        elif opt in ("-o", "--ofolder"):
+            output_folder = arg
 
     # input_folder = "/HFIR/CG1D/IPTS-30750/shared/processed_data/normalized/cropped/23_06_09_left/"
     assert os.path.exists(input_folder)
@@ -44,9 +47,13 @@ def main(argv):
     print("Done!")
 
     print("Exporting ... ", end=" ")
-    input_base_folder_name = os.path.basename(os.path.abspath(input_folder))
-    input_folder_name = os.path.dirname(os.path.abspath(input_folder))
-    output_folder_name = os.path.join(input_folder_name, input_base_folder_name + "_registered")
+
+    if output_folder == "":
+        input_base_folder_name = os.path.basename(os.path.abspath(input_folder))
+        input_folder_name = os.path.dirname(os.path.abspath(input_folder))
+        output_folder_name = os.path.join(input_folder_name, input_base_folder_name + "_registered")
+    else:
+        output_folder_name = output_folder
 
     if not os.path.exists(output_folder_name):
         os.makedirs(output_folder_name)
