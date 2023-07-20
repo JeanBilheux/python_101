@@ -5,39 +5,61 @@ from pystackreg import StackReg
 from skimage import io
 from tqdm import tqdm
 from PIL import Image
+import sys, getopt
 
 
-input_folder = "/HFIR/CG1D/IPTS-30750/shared/processed_data/normalized/cropped/23_06_09_left/"
-assert os.path.exists(input_folder)
+def main(argv):
 
-list_files = glob.glob(os.path.join(input_folder, "*.tiff"))
-assert len(list_files) > 0
+    input_folder = ''
 
-list_images = []
-for _file in list_files:
-    list_images.append(io.imread(_file))
+    opts, args = getopt.getopt(argv, "hi:o:", ["ifolder="])
 
-list_images_3d_array = np.asarray(list_images)
+    for opt, arg in opts:
 
-print("Starting registration ...")
+        if opt == '-h':
+            print("python pystackreg_script.py -i <inputfolder>")
+            sys.exit()
+        elif opt in ("-i", "--ifolder"):
+            input_folder = arg
 
-sr = StackReg(StackReg.RIGID_BODY)
-out_first = sr.register_transform_stack(list_images_3d_array, reference='first')
+    # input_folder = "/HFIR/CG1D/IPTS-30750/shared/processed_data/normalized/cropped/23_06_09_left/"
+    assert os.path.exists(input_folder)
 
-print("Done !")
+    list_files = glob.glob(os.path.join(input_folder, "*.tiff"))
+    assert len(list_files) > 0
 
-print("Exporting")
+    print("Loading the data ... ", end=" ")
+    list_images = []
+    for _file in tqdm(list_files):
+        list_images.append(io.imread(_file))
+    print("Done!")
 
-input_base_folder_name = os.path.basename(input_folder)
-input_folder_name = os.path.dirname(input_folder)
+    print("converting to np array ...", end=" ")
+    list_images_3d_array = np.asarray(list_images)
+    print("Done!")
 
-output_folder_name = os.path.join(input_folder_name, input_base_folder_name + "_registered")
+    print("Starting registration ...", end=" ")
+    sr = StackReg(StackReg.RIGID_BODY)
+    out_first = sr.register_transform_stack(list_images_3d_array, reference='first')
+    print("Done!")
 
-for _index in tqdm(np.arange(len(list_files))):
-    filename = list_files[_index]
-    base_name = os.path.basename(filename)
-    output_filename = os.path.join(output_folder_name, base_name)
-    im = Image.fromarray(out_first[_index])
-    im.save(output_filename)
+    print("Exporting ... ", end=" ")
+    input_base_folder_name = os.path.basename(os.path.abspath(input_folder))
+    input_folder_name = os.path.dirname(os.path.abspath(input_folder))
+    output_folder_name = os.path.join(input_folder_name, input_base_folder_name + "_registered")
 
-print("Done exporting!")
+    if not os.path.exists(output_folder_name):
+        os.makedirs(output_folder_name)
+
+    for _index in tqdm(np.arange(len(list_files))):
+        filename = list_files[_index]
+        base_name = os.path.basename(filename)
+        output_filename = os.path.join(output_folder_name, base_name)
+        im = Image.fromarray(out_first[_index])
+        im.save(output_filename)
+    print("Done exporting!")
+    print(f"data exported to {output_filename}")
+
+
+if __name__ =="__main__":
+    main(sys.argv[1:])
