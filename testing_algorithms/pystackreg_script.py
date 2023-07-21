@@ -6,9 +6,12 @@ from skimage import io
 from tqdm import tqdm
 from PIL import Image
 import sys, getopt
+from datetime import datetime
 
 
 def main(argv):
+
+    start = datetime.now()
 
     input_folder = ''
     output_folder = ''
@@ -66,6 +69,10 @@ def main(argv):
         im.save(output_filename)
     print("Done exporting!")
     print(f"data exported to {output_filename}")
+
+    finish = datetime.now()
+
+    print(f"It took {finish - start}s to process {len(list_files)} images!")
 
 
 if __name__ =="__main__":
