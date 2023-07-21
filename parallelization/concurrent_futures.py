@@ -48,15 +48,41 @@ def loading_indexes(file_index):
     print(f"{file_index = }")
     time.sleep(1)
     return 1
+
+nbr_files_per_thread = 50
+def loading_images(from_index):
+    _list_files = list_files[from_index * nbr_files_per_thread: (from_index + 1) * nbr_files_per_thread]
+    print(f"{from_index =}: loading {len(_list_files)} files")
+    local_list_images = []
+    for _file in _list_files:
+        local_list_images.append(np.array(Image.open(_file)))
+
+    time.sleep(5)
+
+    return {'array': local_list_images,
+            'index': from_index}
+
+
+start_time = time.perf_counter()
+for _file in list_files[0: 500]:
+    _array = np.array(Image.open(_file))
+end_time = time.perf_counter()
+print(f"It took {end_time - start_time}s in serial")
+
+
+start_time = time.perf_counter()
 # We can use a with statement to ensure threads are cleaned up promptly
-global_data = np.zeros((10))
-with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-    future_to_load = {executor.submit(loading_indexes, file_index): file_index for file_index in np.arange(0, 10)}
+global_data = {}
+with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+    future_to_load = {executor.submit(loading_images, file_index): file_index for file_index in np.arange(0, 10)}
     for future in concurrent.futures.as_completed(future_to_load):
         index = future_to_load[future]
-        global_data[index] = future.result()
+        return_dict = future.result()
+        global_data[return_dict['index']] = return_dict['array']
 
-print(global_data)
+end_time = time.perf_counter()
+print(f"it took {end_time - start_time}s in parallel")
+
         # try:
         #     data = future.result()
         # except Exception as exc:
