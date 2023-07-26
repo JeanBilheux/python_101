@@ -64,7 +64,7 @@ def main(argv):
     logging.info(f"input_folder: {input_folder}")
     logging.info(f"output_folder: {output_folder}")
 
-    list_files = glob.glob(os.path.join(input_folder, "*.tiff"))
+    list_files = glob.glob(os.path.join(input_folder, "*.tif*"))
     list_files.sort()
     assert len(list_files) > 0
 
