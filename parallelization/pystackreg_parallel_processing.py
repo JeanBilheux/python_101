@@ -14,7 +14,7 @@ from pystackreg import StackReg
 import logging
 
 
-LOGGER_FILENAME = os.path.abspath("~/.pystackreg.log")
+LOGGER_FILENAME = os.path.abspath("/home/j35/.pystackreg.log")
 
 
 def split_list(input_list, chunk_size):
