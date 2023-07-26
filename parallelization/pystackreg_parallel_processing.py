@@ -35,7 +35,6 @@ def split_list(input_list, chunk_size):
 
 def main(argv):
 
-    print(f"{LOGGER_FILENAME =}")
     logging.basicConfig(filename=LOGGER_FILENAME,
                         filemode='a',
                         format='[%(levelname)s] - %(asctime)s - %(message)s',
@@ -112,7 +111,7 @@ def main(argv):
             im.save(output_filename)
             logging.info(f"exporting {os.path.basename(filename)} -> {output_filename}")
 
-        logging.info(f"Done with files from {list_images[0]} to {list_images[-1]}!")
+        logging.info(f"Done with files from {list_filenames[0]} to {list_filenames[-1]}!")
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
         future_to_load = {executor.submit(process_images, file_list, output_folder): file_list for file_list in list_files_per_thread}
