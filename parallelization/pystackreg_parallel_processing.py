@@ -35,6 +35,7 @@ def split_list(input_list, chunk_size):
 
 def main(argv):
 
+    print(f"{LOGGER_FILENAME =}")
     logging.basicConfig(filename=LOGGER_FILENAME,
                         filemode='a',
                         format='[%(levelname)s] - %(asctime)s - %(message)s',
