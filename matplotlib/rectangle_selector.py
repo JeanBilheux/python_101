@@ -1,3 +1,4 @@
+# +
 from __future__ import print_function
 """
 Do a mouseclick somewhere, move the mouse to some destination, release
@@ -12,6 +13,8 @@ from matplotlib.widgets import RectangleSelector
 import numpy as np
 import matplotlib.pyplot as plt
 
+# %matplotlib notebook
+# -
 
 def line_select_callback(eclick, erelease):
     'eclick and erelease are the press and release events'
@@ -52,3 +55,15 @@ toggle_selector.RS = RectangleSelector(current_ax, line_select_callback,
                                        interactive=True)
 plt.connect('key_press_event', toggle_selector)
 plt.show()
+
+# drawtype is 'box' or 'line' or 'none'
+toggle_selector.RS = RectangleSelector(current_ax, line_select_callback,
+                                       useblit=True,
+                                       button=[1, 3],  # don't use middle button
+                                       minspanx=5, minspany=5,
+                                       spancoords='pixels',
+                                       interactive=True)
+plt.connect('key_press_event', toggle_selector)
+plt.show()
+
+
