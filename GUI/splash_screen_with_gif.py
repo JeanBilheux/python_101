@@ -2,7 +2,7 @@ import tkinter as tk
 import time
 from PIL import Image, ImageTk
 
-FILE = "logo.gif"
+FILE = "logo_with_message.gif"
 
 
 class MyApp(tk.Frame):
@@ -76,7 +76,7 @@ root.title("My app")
 root.overrideredirect(True) # hide the title bar
 
 splash_width = 500
-splash_height = 500
+splash_height = 550
 
 root.resizable(width=False, height=False)
 
