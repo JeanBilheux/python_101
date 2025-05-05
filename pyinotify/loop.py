@@ -13,4 +13,8 @@ notifier.loop()
 
 for i in np.arange(5):
     print(f"{i =}")
+<<<<<<< HEAD
     
+=======
+    
+>>>>>>> 96e0b23 (updating)
