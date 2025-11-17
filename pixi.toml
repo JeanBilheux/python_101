@@ -2,7 +2,7 @@
 authors = ["JeanBilheux <bilheuxjm@ornl.gov>"]
 channels = ["conda-forge"]
 name = "python_101"
-platforms = ["osx-arm64"]
+platforms = ["linux-64"]
 version = "0.1.0"
 
 [tasks]
@@ -12,3 +12,7 @@ scitiff = ">=25.7.0,<26"
 python = ">=3.13.9,<3.14"
 jupyterlab = ">=4.4.10,<5"
 matplotlib = ">=3.10.7,<4"
+plopp = ">=25.10.0,<26"
+ipysheet = ">=0.7.0,<0.8"
+jupyter = ">=1.1.1,<2"
+pandas = ">=2.3.3,<3"
