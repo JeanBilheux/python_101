@@ -1,0 +1,12 @@
+[workspace]
+authors = ["JeanBilheux <bilheuxjm@ornl.gov>"]
+channels = ["conda-forge"]
+name = "working_with_files"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+numpy = ">=2.3.5,<3"
+ipykernel = ">=7.1.0,<8"
