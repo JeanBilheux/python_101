@@ -2,7 +2,7 @@
 authors = ["JeanBilheux <bilheuxjm@ornl.gov>"]
 channels = ["conda-forge"]
 name = "python_101"
-platforms = ["linux-64"]
+platforms = ["linux-64", "osx-arm64"]
 version = "0.1.0"
 
 [tasks]
@@ -16,3 +16,5 @@ plopp = ">=25.10.0,<26"
 ipysheet = ">=0.7.0,<0.8"
 jupyter = ">=1.1.1,<2"
 pandas = ">=2.3.3,<3"
+h5py = ">=3.16.0,<4"
+plotly = ">=6.6.0,<7"
